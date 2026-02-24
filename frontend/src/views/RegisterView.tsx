@@ -1,18 +1,30 @@
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import axios, {isAxiosError} from 'axios'
+import type { RegisterForm } from '../types'
 import ErrorMessage from '../components/ErrorMessage';
 
 export default function RegisterView() {
-    const initialValues = {
+    const initialValues: RegisterForm = {
         name: '',
         email: '',
         handle: '',
         password: '',
         password_confirmation: ''
     }
-    const { register, watch, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialValues });
-    const handleRegister = () => {
+    const { register, reset, watch, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialValues });
+    const password = watch('password')
 
+    const handleRegister = async (formData: RegisterForm) => {
+        try {
+            const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, formData)
+            console.log(data)
+            reset()
+        } catch (error) {
+            if(isAxiosError(error) && error.response){
+                console.log(error.response.data.error)
+            }
+        }
     }
     return (
         <>
@@ -43,7 +55,11 @@ export default function RegisterView() {
                         placeholder="Email de Registro"
                         className="bg-slate-100 border-none p-3 rounded-lg placeholder-slate-400"
                         {...register('email', {
-                            required: "El email es obligatorio"
+                            required: "El email es obligatorio",
+                            pattern: {
+                                value: /\S+@\S+\.\S+/,
+                                message: "E-mail no válido",
+                            },
                         })}
                     />
                     {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
@@ -71,7 +87,11 @@ export default function RegisterView() {
                         placeholder="Password de Registro"
                         className="bg-slate-100 border-none p-3 rounded-lg placeholder-slate-400"
                         {...register('password', {
-                            required: "El password es obligatorio"
+                            required: "El password es obligatorio",
+                            minLength: {
+                                value: 8,
+                                message: "El password debe tener al menos 8 caracteres"
+                            }
                         })}
                     />
                     {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
@@ -86,7 +106,8 @@ export default function RegisterView() {
                         placeholder="Repetir Password"
                         className="bg-slate-100 border-none p-3 rounded-lg placeholder-slate-400"
                         {...register('password_confirmation', {
-                            required: "Repetir Password es obligatorio"
+                            required: "Repetir Password es obligatorio",
+                            validate: (value) => value === password || 'Los passwords no son iguales'
                         })}
                     />
                     {errors.password_confirmation && <ErrorMessage>{errors.password_confirmation.message}</ErrorMessage>}
