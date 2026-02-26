@@ -1,3 +1,7 @@
+/**
+ * Manejadores de autenticación: registro de usuarios e inicio de sesión.
+ * Valida credenciales, genera handles únicos y encripta contraseñas.
+ */
 import { Request, Response } from 'express'
 import slug from 'slug'
 import User from "../models/User"

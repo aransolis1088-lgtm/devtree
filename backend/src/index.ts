@@ -1,3 +1,7 @@
+/**
+ * Punto de entrada del servidor.
+ * Importa la app configurada de server.ts e inicia el servidor en un puerto.
+ */
 import colors from 'colors'
 import server from './server'
 

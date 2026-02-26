@@ -1,3 +1,17 @@
+/**
+ * Vista de Registro de usuarios.
+ * 
+ * Librerías utilizadas:
+ * - react-router-dom: Link para navegar entre rutas (login/register)
+ * - react-hook-form: Maneja el formulario, validaciones y errores
+ * - axios: Realiza petición HTTP POST al backend para registrar usuario
+ * 
+ * Flujo:
+ * 1. Usuario completa formulario con validaciones locales
+ * 2. Al enviar, se hace request al backend (/auth/register)
+ * 3. Si hay error, se muestra el mensaje
+ * 4. Si es exitoso, se limpia el formulario
+ */
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import axios, {isAxiosError} from 'axios'

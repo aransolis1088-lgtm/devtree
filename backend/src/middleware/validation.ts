@@ -1,3 +1,7 @@
+/**
+ * Middleware de validación: captura y responde errores de validación de entrada.
+ * Usa `express-validator` para validar datos y retorna errores si existen.
+ */
 import type { Request, Response, NextFunction } from 'express'
 import { validationResult } from 'express-validator'
 

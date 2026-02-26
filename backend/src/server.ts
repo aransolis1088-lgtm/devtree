@@ -1,3 +1,7 @@
+/**
+ * Configuración de la aplicación Express.
+ * Configura middlewares, CORS, conecta a BD y vincula las rutas.
+ */
 import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'

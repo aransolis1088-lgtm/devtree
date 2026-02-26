@@ -1,3 +1,7 @@
+/**
+ * Modelo de Usuario: define la estructura y validación de datos de usuarios en MongoDB.
+ * Incluye campos: handle, nombre, email y contraseña (todos únicos y requeridos).
+ */
 import mongoose, { Schema } from "mongoose";
 
 interface IUser {

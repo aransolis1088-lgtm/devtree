@@ -1,3 +1,7 @@
+/**
+ * Rutas de autenticación: registro e inicio de sesión.
+ * Valida entrada y ejecuta handlers correspondientes.
+ */
 import { Router } from 'express'
 import { body } from 'express-validator'
 import { createAccount, login } from './handlers'
