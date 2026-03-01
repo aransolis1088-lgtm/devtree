@@ -18,5 +18,5 @@ export const connectDB = async () => {
     } catch (error) {
         console.log(colors.bgRed.white.italic(error));
         process.exit(1);
-}
+    }
 };
