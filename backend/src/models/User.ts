@@ -2,13 +2,14 @@
  * Modelo de Usuario: define la estructura y validación de datos de usuarios en MongoDB.
  * Incluye campos: handle, nombre, email y contraseña (todos únicos y requeridos).
  */
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
-export interface IUser {
+export interface IUser extends Document {
     handle: string
     name: string,
     email: string,
     password: string
+    description: string
 }
 
 const userShema = new Schema({
@@ -35,6 +36,10 @@ const userShema = new Schema({
         type: String,
         required: true,
         trim: true
+    },
+    description: {
+        type: String,
+        default: ''
     }
 })
 
