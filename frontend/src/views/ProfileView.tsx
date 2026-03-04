@@ -3,6 +3,7 @@ import ErrorMessage from '../components/ErrorMessage'
 import { useQueryClient, useMutation } from '@tanstack/react-query'
 import type { ProfileForm, User } from '../types'
 import { updateProfile } from '../api/DevTreeAPI'
+import { toast } from 'sonner'
 
 export default function ProfileView() {
 
@@ -18,18 +19,24 @@ export default function ProfileView() {
 
   const updateProfileMutation = useMutation({
     mutationFn: updateProfile,
-    onError: () => {
-      console.log('Hubo un error')
+    onError: (error) => {
+      toast.error(error.message)
     },
-    onSuccess: () => {
-      console.log('Todo Bien')
+    onSuccess: (data) => {
+      toast.success(data)
+      queryClient.invalidateQueries({queryKey: ['user']})
     },
   })
+
+  const handleChange = (e:  React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
+    if(e.target.files){
+      
+    }
+  }
 
   const handleUserProfileForm = (formData: ProfileForm) => {
     updateProfileMutation.mutate(formData)
   }
-
 
   return (
     <form
@@ -77,7 +84,7 @@ export default function ProfileView() {
           name="handle"
           className="border-none bg-slate-100 rounded-lg p-2"
           accept="image/*"
-          onChange={() => { }}
+          onChange={handleChange}
         />
       </div>
 
