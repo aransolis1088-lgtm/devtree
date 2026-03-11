@@ -1,10 +1,25 @@
+// React: Hooks para manejo de estado y efectos en componentes
 import { useEffect, useState } from "react"
+
+// @tanstack/react-query: Librería para manejo de estado global y mutaciones (peticiones POST/PATCH/DELETE)
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+
+// Importación de datos locales
 import { social } from "../data/social"
+
+// Importación de componentes locales
 import DevTreeInput from "../components/DevTreeInput"
+
+// Funciones utilitarias locales para validación
 import { isValidUrl } from "../utils"
+
+// sonner: Librería para mostrar notificaciones toast (alertas visuales)
 import { toast } from "sonner"
+
+// Funciones API para comunicación con el backend
 import { updateProfile } from "../api/DevTreeAPI"
+
+// Tipos TypeScript para validación de datos
 import type { SocialNetwork, User } from "../types"
 
 export default function LinkTreeView() {
@@ -57,16 +72,16 @@ export default function LinkTreeView() {
 
     const selectedSocialNetwork = updatedLinks.find(link => link.name === socialNetwork)
     if (selectedSocialNetwork?.enabled) {
-      const id = links.filter(link => link.id).length +1
+      const id = links.filter(link => link.id).length + 1
       if (links.some(link => link.name === socialNetwork)) {
         updatedItems = links.map(link => {
-          if(link.name === socialNetwork){
+          if (link.name === socialNetwork) {
             return {
               ...link,
               enabled: true,
               id
             }
-          }else{
+          } else {
             return link
           }
         })
@@ -86,7 +101,7 @@ export default function LinkTreeView() {
             id: 0,
             enabled: false
           }
-        } else if (link.id > indexToUpdate && (indexToUpdate !==0 && link.id ===1)) {
+        } else if (link.id > indexToUpdate && (indexToUpdate !== 0 && link.id === 1)) {
           return {
             ...link,
             id: link.id - 1
