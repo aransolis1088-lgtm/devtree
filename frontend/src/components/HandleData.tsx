@@ -1,4 +1,3 @@
-import { social } from "../data/social"
 import type { SocialNetwork, UserHandle } from "../types"
 
 type HandleDataProps = {
